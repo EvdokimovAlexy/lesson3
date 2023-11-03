@@ -16,14 +16,9 @@ public class Program {
      * @param args
      */
     public static void main(String[] args) {
-        Database database = new NotesDatabase();
-        NotesDatabaseContext context = new DatabaseContext(database);
-        NotesConsolePresenter notesConsolePresenter = new NotesConsolePresenter();
-        NoteEditor noteEditor = new ConcreteNoteEditor(notesConsolePresenter, context);
-
-        NotesController notesController = new NotesController(noteEditor);
-
-        notesController.routeGetAll();
+        NotesController controller = new NotesController(
+                new ConcreteNoteEditor(new NotesDbContext(new NotesDatabase()), new NotesConsolePresenter()));
+        controller.routeGetAll();
     }
 
 }
